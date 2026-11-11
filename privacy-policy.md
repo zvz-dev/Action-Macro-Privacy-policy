@@ -1,0 +1,135 @@
+# Action Macro — 개인정보처리방침 / Privacy Policy
+
+## 한국어
+
+시행일 및 최종 수정일: 2026년 11월 11일
+
+### 1. 적용 범위와 목적
+
+이 방침은 Chrome 확장 프로그램 Action Macro가 처리하는 데이터와 그 사용·저장·공유 방식을 설명합니다. Action Macro는 사용자가 지정한 웹페이지 요소에 대한 반복 작업을 저장하고 개별 액션 또는 순차 실행 그룹으로 실행하며, TOTP 인증번호 입력과 복사, QR 등록, 백업과 복원을 제공합니다.
+
+### 2. 처리하는 데이터
+
+- 액션·그룹 설정: 이름, 대상 URL 및 적용 범위, CSS 선택자, 요소 태그·입력 유형, 실행 종류, 입력값, 그룹 구성·순서·대기 시간·자동 실행 설정 등을 저장합니다. 입력값에는 사용자가 직접 등록한 아이디·이메일·비밀번호 등의 정보가 포함될 수 있습니다.
+
+- OTP 정보: 사용자가 등록한 계정 이름, 시크릿, 자릿수, 주기와 알고리즘을 저장하고 현재 인증번호를 생성합니다. QR 등록 및 Google Authenticator 가져오기 과정에서도 이러한 정보를 처리합니다.
+
+- 웹페이지 정보와 사용자 상호작용: 대상 요소를 선택·검사·실행하기 위해 현재 URL, 요소 속성·선택값·표시 및 준비 상태와 요소 선택 중 클릭·포인터 위치를 처리합니다. 전체 방문 기록을 조회하거나 일반적인 키 입력을 상시 기록하는 기능은 없습니다.
+
+- QR 이미지: 사용자가 첨부·붙여넣은 이미지 또는 QR 영역 선택을 위해 캡처한 현재 탭의 보이는 화면을 브라우저 메모리에서 처리합니다. 화면 캡처에는 선택 영역 밖의 내용이 일시적으로 포함될 수 있습니다. 원본 이미지와 캡처는 확장 저장소에 보관하거나 개발자 서버에 업로드하지 않습니다.
+
+- 환경·실행 상태: 언어, 테마, 마지막 팝업 탭, OTP 표시 순서, 임시 실행 진행 상태 및 반복 자동 실행 방지 상태 등을 처리합니다.
+
+### 3. 사용 목적과 제한
+
+데이터는 사용자가 설정한 액션의 등록·편집·실행, URL 조건 확인, 자동 실행, OTP 생성·입력·복사, QR 해독, 백업·복원 및 화면 설정 유지에 사용됩니다. 행동 분석, 광고, 사용자 프로파일링, 신용도 평가 또는 대출 판단에 사용하지 않습니다. 사용자 데이터를 판매하지 않으며, Chrome 웹 스토어 사용자 데이터 정책의 제한적 사용(Limited Use) 요구사항에 따라 처리합니다.
+
+### 4. 저장 위치와 암호화
+
+- 액션·그룹·OTP 및 언어 설정은 확장 프로그램의 로컬 저장소에 저장됩니다. 액션 입력값과 OTP 시크릿은 AES-GCM으로 암호화되며, 로컬 암호화 키는 추출 불가능한 CryptoKey 형태로 IndexedDB에 저장됩니다. 이름, URL, 선택자 등 모든 메타데이터가 암호화되는 것은 아닙니다.
+
+- 이 암호화는 사용자 비밀번호로 잠금을 해제하는 방식이 아닙니다. 확장 프로그램은 로컬 키로 저장된 값을 복호화할 수 있으므로 신뢰할 수 있는 개인 브라우저 환경에서 사용하세요.
+
+- 테마 설정은 chrome.storage.sync를 사용하므로 Chrome 동기화 설정에 따라 Google을 통해 다른 브라우저 환경으로 동기화될 수 있습니다. 액션·그룹·OTP 정보는 이 동기화 저장소에 저장하지 않습니다. 일부 화면 설정은 확장 페이지의 localStorage에도 캐시됩니다.
+
+- 그룹 진행 상태 등은 세션 저장소에, QR 등록 대기 정보 등은 임시 메모리에 보관합니다.
+
+### 5. 외부 전송과 제3자 처리
+
+- Action Macro에는 액션·OTP·QR 이미지를 수집하는 개발자 서버 전송 기능이나 별도의 분석·광고 추적 기능이 없습니다.
+
+- 사용자가 액션을 실행하면 설정한 입력값 및 생성된 OTP 코드가 대상 웹페이지에 전달됩니다. 해당 웹페이지는 자체 동작에 따라 이 값을 서버로 전송할 수 있으며, 이후 처리는 해당 사이트의 정책을 따릅니다.
+
+- 사용자가 복사를 요청하면 현재 OTP 코드를 운영체제 클립보드에 기록합니다. 클립보드의 보관·동기화는 운영체제 및 사용 중인 도구의 설정에 따라 달라질 수 있습니다.
+
+- 백업을 요청하면 데이터가 사용자가 지정한 비밀번호로 암호화된 파일로 저장됩니다. 백업 파일을 외부에 공유하거나 클라우드 폴더에 저장하는 경우 사용자가 선택한 서비스의 정책과 설정이 적용됩니다.
+
+- 테마의 Chrome 동기화와 Chrome 웹 스토어 자체의 설치·리뷰·서비스 운영 데이터 처리는 Google의 정책과 설정을 따릅니다.
+
+### 6. 권한 사용
+
+activeTab은 사용자가 호출한 현재 페이지의 요소 선택·검사·실행과 QR 화면 캡처에 사용합니다. scripting은 확장 프로그램에 포함된 요소 선택기·편집창·실행 코드를 페이지에 삽입하는 데 사용합니다. storage는 설정과 데이터를 저장하는 데 사용합니다. 자동 실행과 여러 페이지에 걸친 그룹 실행에는 관련 사이트의 선택적 접근 권한을 요청할 수 있습니다.
+
+### 7. 보관·열람·삭제
+
+- 저장한 액션·그룹·OTP는 사용자가 삭제하거나 확장 저장 데이터를 제거할 때까지 보관합니다. 전체 관리에서 열람·수정·삭제할 수 있으며, 참조 중인 액션·OTP를 삭제하려면 먼저 관련 그룹이나 액션의 연결을 해제해야 합니다.
+
+- 확장 프로그램을 제거하면 Chrome이 해당 확장의 저장 데이터를 제거합니다. Chrome 동기화 데이터의 처리는 Chrome의 설정과 동작을 따릅니다. 사용자가 별도로 저장한 백업 파일과 원본 QR 이미지는 확장 프로그램 제거로 삭제되지 않으므로 직접 관리·삭제해야 합니다.
+
+- 화면 캡처와 QR 이미지 해독 결과는 처리 중 임시 메모리에서 사용됩니다. 페이지 QR 등록의 대기 정보는 사용되거나 만료되면 폐기됩니다. 화면에 표시한 OTP 코드의 유효시간이 지나더라도 클립보드에 복사된 값은 자동으로 지우지 않습니다.
+
+### 8. 방침 변경
+
+기능이나 데이터 처리 방식이 변경되면 이 문서와 최종 수정일을 갱신합니다. 기존에 안내한 처리 방식에 중요한 변경이 있는 경우 Chrome 웹 스토어 또는 확장 프로그램 내 안내 등 적절한 방법으로 알립니다.
+
+### 9. 문의
+
+개인정보 및 데이터 처리 관련 문의는 Chrome 웹 스토어의 Action Macro 상세 페이지에 표시된 개발자 연락처를 이용해 주세요. 문의 시 비밀번호, OTP 시크릿, 인증번호 또는 복호화한 백업 데이터를 보내지 마세요.
+
+---
+
+## English
+
+Effective and last updated: November 11, 2026
+
+### 1. Scope and purpose
+
+This policy explains how the Action Macro Chrome extension handles, uses, stores, and shares data. Action Macro saves repetitive tasks involving webpage elements selected by the user and runs them as individual actions or sequential groups. It also provides TOTP code entry and copying, QR registration, and backup and restore.
+
+### 2. Data handled
+
+- Action and group settings: names, target URLs and matching rules, CSS selectors, element tags and input types, action types, input values, group steps, ordering, delays, and automatic execution settings. User-configured input values may include usernames, email addresses, or passwords.
+
+- OTP information: user-provided account names, secrets, digits, periods, and algorithms, used to generate current codes. These details are also processed during QR registration and Google Authenticator imports.
+
+- Webpage information and interactions: current URLs, element attributes, selected values, visibility and readiness, and clicks and pointer positions during element selection. These support selecting, checking, and running actions. The extension does not query the browser’s complete browsing history or continuously log general keystrokes.
+
+- QR images: images attached or pasted by the user, or a capture of the visible tab when selecting a QR area, are processed in browser memory. A screen capture may temporarily include content outside the selected area. Source images and captures are not retained in extension storage or uploaded to a developer server.
+
+- Preferences and execution state: language, theme, last popup tab, OTP ordering, temporary run progress, and flags preventing repeated automatic execution.
+
+### 3. Purposes and limits
+
+Data is used to create, edit, and run configured actions; check URL conditions; provide automatic execution; generate, enter, and copy OTP codes; decode QR images; back up and restore settings; and retain display preferences. It is not used for behavioral analytics, advertising, user profiling, creditworthiness assessment, or lending decisions. User data is not sold. Data is handled in accordance with the Chrome Web Store User Data Policy, including its Limited Use requirements.
+
+### 4. Storage and encryption
+
+- Actions, groups, OTP profiles, and language settings are stored in the extension’s local storage. Action input values and OTP secrets are encrypted using AES-GCM. The local key is stored in IndexedDB as a non-extractable CryptoKey. Not all metadata is encrypted; names, URLs, and selectors may remain readable.
+
+- This is not a user-password-based vault. The extension can decrypt stored values using its local key. Use it in a trusted personal browser environment.
+
+- Theme preferences use chrome.storage.sync and may be synchronized through Google according to Chrome settings. Actions, groups, and OTP profiles are not stored in that synchronized storage. Some display preferences are also cached in extension-page localStorage.
+
+- Group progress and related temporary state use session storage. Pending QR registration details and other short-lived information use temporary memory.
+
+### 5. Transmission and third-party processing
+
+- Action Macro has no developer-server upload feature for actions, OTP profiles, or QR images, and no separate analytics or advertising tracking functionality.
+
+- Running an action passes configured input values and generated OTP codes to the target webpage. That webpage may transmit them to its own servers as part of its normal behavior. Its subsequent processing is governed by that website’s policies.
+
+- When the user requests copying, the current OTP code is written to the operating system clipboard. Clipboard retention and synchronization depend on the operating system and other tools in use.
+
+- On request, backups are saved as files encrypted with a password chosen by the user. If a backup is shared or saved in a cloud-synchronized folder, the selected service’s settings and policies apply.
+
+- Chrome theme synchronization and Chrome Web Store installation, review, and service-operation data are governed by Google’s policies and settings.
+
+### 6. Permissions
+
+activeTab supports user-invoked element selection, inspection, action execution, and QR screen capture on the current page. scripting injects the extension’s bundled picker, editor, and execution code. storage retains settings and data. Optional access to relevant sites may be requested for automatic execution and groups spanning multiple pages.
+
+### 7. Retention, access, and deletion
+
+- Saved actions, groups, and OTP profiles remain until the user deletes them or removes extension storage. They can be viewed, edited, and deleted in the manager. Referenced actions or OTP profiles must first be unlinked from related groups or actions before deletion.
+
+- Uninstalling the extension causes Chrome to remove its extension data. Chrome synchronization data is subject to Chrome’s settings and behavior. Separately saved backup files and source QR images are not removed by uninstalling the extension and must be managed and deleted by the user.
+
+- Screen captures and decoded QR details are used in temporary memory during processing. Pending page-QR registration details are discarded when consumed or expired. Expiration of an OTP code displayed in the extension does not automatically clear a copied code from the clipboard.
+
+### 8. Changes
+
+When features or data handling change, this policy and its last-updated date will be revised. Material changes to previously disclosed practices will be communicated through appropriate means, such as the Chrome Web Store or the extension interface.
+
+### 9. Contact
+
+For privacy and data-handling questions, use the developer contact details displayed on the Action Macro Chrome Web Store listing. Do not include passwords, OTP secrets, verification codes, or decrypted backup data in your message.
